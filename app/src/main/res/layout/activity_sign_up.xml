@@ -51,7 +51,7 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineBotMainTop"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_username"
+        android:id="@+id/til_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -59,6 +59,31 @@
         app:layout_constraintEnd_toStartOf="@+id/guidelineButtonY"
         app:layout_constraintStart_toStartOf="@+id/guidelineButtonX"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:startIconDrawable="@drawable/ic_baseline_person_outline_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:paddingEnd="48dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:imeOptions="actionNext"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:hintEnabled="false"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineButtonY"
+        app:layout_constraintStart_toStartOf="@+id/guidelineButtonX"
+        app:layout_constraintTop_toBottomOf="@+id/til_name"
         app:startIconDrawable="@drawable/ic_baseline_person_outline_24">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -93,6 +118,7 @@
             android:layout_height="wrap_content"
             android:hint="Password"
             android:imeOptions="actionDone"
+            android:inputType="textPassword"
             android:gravity="center"
             android:textColor="@color/white"
             android:textColorHint="@color/white"

@@ -47,6 +47,8 @@ public class Constants {
     public static final int PORT = 8069;
     public static final String DOMAIN = "zenexodoo.ddns.net";
     public static final String DB = "looq";
+    public static final String LOOQ_USER = "public_user";
+    public static final String LOOQ_PASSWORD = "znx2021";
     public static final String GENERAL = "name desc";
     public static final String GENERAL_1 = "name";
 
