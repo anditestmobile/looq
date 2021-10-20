@@ -1,0 +1,171 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Core" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/blue_logo</item>
+        <item name="colorPrimaryVariant">@color/blue_accent</item>
+        <item name="colorSecondary">@color/blue_secondary</item>
+<!--        <item name="colorSurface">#FFFBFA</item>-->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorError">#EF9A43</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorOnSurface">#442B2D</item>
+        <item name="colorOnError">#FFFBFA</item>
+        <item name="colorOnBackground">#442B2D</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Core.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Core.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Core.LargeComponent</item>
+
+        <item name="bottomSheetDialogTheme">@style/Theme.Core.BottomSheetDialog</item>
+        <item name="chipStyle">@style/Widget.Core.Chip</item>
+        <item name="textInputStyle">@style/Widget.Core.TextInputLayout</item>
+
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+
+    </style>
+
+
+    <style name="ShapeAppearance.Core.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
+
+    <style name="ShapeAppearance.Core.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="ShapeAppearance.Core.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="Widget.Core.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="shapeAppearanceOverlay">@null</item>
+    </style>
+
+    <style name="Widget.Core.Chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <!--<item name="chipCornerRadius">@null</item>-->
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Core.Chip</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.Core.Chip" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="Widget.Core.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/blue_login</item>
+        <item name="boxStrokeColor">@color/blue_login</item>
+        <item name="hintEnabled">false</item>
+        <item name="startIconTint">@color/colorPrimary</item>
+        <item name="endIconTint">@color/colorPrimary</item>
+    </style>
+
+    <style name="Theme.Core.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.Core.BottomSheet.Modal</item>
+    </style>
+
+    <style name="Widget.Core.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="android:background">?android:attr/colorBackground</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Core.BottomSheet</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.Core.BottomSheet" parent="">
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+    </style>
+
+    <style name="primaryRegularTextStyle">
+        <item name="android:textSize">@dimen/regular_textSize</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="secondarySubTextStyle">
+        <item name="android:textSize">@dimen/sub_textSize</item>
+        <item name="android:textColor">@color/colorSecondary</item>
+    </style>
+
+    <style name="facebookButton">
+        <item name="android:icon">@drawable/ic_facebook_circular_logo</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/facebookColor</item>
+    </style>
+    <style name="googleButton">
+        <item name="android:drawableStart">@drawable/ic_google</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+
+    <style name="CustomViewAllTab" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="tabMode">scrollable</item>
+        <item name="tabTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+        <item name="tabIndicatorColor">@color/colorSecondary</item>
+        <item name="tabSelectedTextColor">@color/black</item>
+        <item name="tabTextColor">@color/inactive_color</item>
+        <item name="singleLine">true</item>
+        <item name="tabGravity">fill</item>
+    </style>
+
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="ShapeAppearanceOverlay.App.Car" parent="">
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+    </style>
+
+    <style name="CustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners</item>
+    </style>
+
+
+    <style name="ShapeAppearanceOverlay_card_custom_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomRight">24dp</item>
+        <item name="cornerSizeBottomLeft">24dp</item>
+    </style>
+
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="timeRadioButton" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:background">@drawable/background_brand_rad_button</item>
+        <item name="android:textColor">@color/selector_text_color_radio_brand</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:width">130dp</item>
+        <item name="android:height">60dp</item>
+        <item name="android:lines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+    <style name="formGroupTextStyle">
+        <item name="android:textSize">@dimen/big_textSize</item>
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:background">@drawable/bg_bot_divider</item>
+    </style>
+</resources>

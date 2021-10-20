@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Core.Translucent" parent="Theme.Core">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="Theme.Core.EventDetail" parent="Theme.Core">
+        <item name="android:statusBarColor">@color/backgroundForWhite</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">LOOQ</string>
+    <string name="placeholder_empty_string">-</string>
+    <string name="app_version">1.0.5 DEV</string>
+    <string name="login_invalid">Invalid username or password</string>
+
+
+    <string name="change_password_title_label">Change Password</string>
+    <string name="change_password_message_empty_old_password">Please fill in the old password</string>
+    <string name="change_password_message_empty_new_password">Please fill in the new password</string>
+    <string name="change_password_message_empty_confirm_password">Please confirm the new password</string>
+    <string name="change_password_message_new_do_not_match_confirm">Your new password and confirmation password do not match</string>
+    <string name="change_password_dialog_message">Do you want to save changes?</string>
+    <string name="change_password_dialog_wait_message">Please wait..</string>
+    <string name="change_password_dialog_pos_button_label">Save</string>
+    <string name="change_password_dialog_success_message">Change saved</string>
+
+    <string name="edit_profile_title_label">Profile</string>
+    <string name="edit_profile_dialog_message">Do you want to save changes?</string>
+    <string name="edit_profile_dialog_pos_button_label">Save</string>
+    <string name="edit_profile_dialog_wait_message">Please wait..</string>
+    <string name="edit_profile_dialog_success_message">Change saved</string>
+    <string name="edit_profile_message_empty_name">Please fill in the name</string>
+    <string name="edit_profile_message_empty_phone">Please fill in the phone</string>
+    <string name="edit_profile_message_empty_email">Please fill in the email</string>
+
+    <string name="facebook_app_id">1787350721470014</string> <string name="fb_login_protocol_scheme">fb1787350721470014</string>
+
+</resources>

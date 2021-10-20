@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <Button
+            android:id="@+id/btn_remind_me"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:padding="12dp"
+            android:text="Remind Me"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_row_view_event_banner" />
+
+        <include
+            android:id="@+id/layout_row_view_event_banner"
+            layout="@layout/row_view_event_banner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@id/btn_remind_me"
+            app:layout_constraintStart_toStartOf="@id/btn_remind_me"
+            app:layout_constraintTop_toBottomOf="@+id/tv_label_event" />
+
+        <TextView
+            android:id="@+id/tv_label_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Event"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
+        <sg.carpark.looq.utils.view.ToggleButtonGroupTableLayout
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/tv_label_time_slots">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3">
+
+                <RadioButton
+                    style="@style/timeRadioButton"
+                    android:id="@+id/rb1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:text="09:30 am" />
+
+                <RadioButton
+                    style="@style/timeRadioButton"
+                    android:id="@+id/rb2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:text="10:00 am" />
+
+                <RadioButton
+                    style="@style/timeRadioButton"
+                    android:id="@+id/rb3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:text="10:30 am" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3">>
+
+                <RadioButton
+                    style="@style/timeRadioButton"
+                    android:id="@+id/rb4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:text="11:00 am" />
+
+                <RadioButton
+                    style="@style/timeRadioButton"
+                    android:id="@+id/rb5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:text="11:30 am" />
+
+                <RadioButton
+                    style="@style/timeRadioButton"
+                    android:id="@+id/rb6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:text="12:00 pm" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3">
+
+                <RadioButton
+                    style="@style/timeRadioButton"
+                    android:id="@+id/rb7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:text="12:30 pm" />
+
+                <RadioButton
+                    style="@style/timeRadioButton"
+                    android:id="@+id/rb8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:text="13:00 pm" />
+
+                <RadioButton
+                    style="@style/timeRadioButton"
+                    android:id="@+id/rb9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:text="13:30 pm" />
+            </TableRow>
+        </sg.carpark.looq.utils.view.ToggleButtonGroupTableLayout>
+
+        <!--<TextView
+            android:id="@+id/tv_label_time_slots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Time Slots"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView"
+            android:layout_marginTop="8dp"/>-->
+
+        <!--<devs.mulham.horizontalcalendar.HorizontalCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundForWhite"
+            app:textColorSelected="#FFFF"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            app:textColorNormal="@color/black"
+            app:selectedDateBackground="@drawable/bg_capsule_calendar"
+            app:layout_constraintTop_toBottomOf="@id/topAppBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>-->
+
+
+        <com.applandeo.materialcalendarview.CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:type="one_day_picker"
+            app:eventsEnabled="true"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            app:headerColor="@color/white"
+            app:headerLabelColor="@color/colorSecondary"
+            app:previousButtonSrc="@drawable/ic_previous_arrow"
+            app:forwardButtonSrc="@drawable/ic_next_arrow"
+            app:layout_constraintTop_toBottomOf="@id/topAppBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/topAppBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                android:layout_width="match_parent"
+                app:navigationIconColor="@color/black"
+                android:backgroundTint="@color/backgroundForWhite"
+                android:layout_height="?attr/actionBarSize">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Event dates and time"
+                    android:textColor="@color/black"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
