@@ -2,8 +2,12 @@ package sg.carpark.looq.ui.login;
 
 import android.accounts.Account;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -12,10 +16,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
+import com.facebook.GraphRequest;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -31,7 +38,12 @@ import com.google.api.services.people.v1.People;
 import com.google.api.services.people.v1.model.CoverPhoto;
 import com.google.api.services.people.v1.model.Person;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -66,6 +78,20 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String hashKey = new String(Base64.encode(md.digest(), 0));
+                Log.i(TAG, "printHashKey() Hash Key: " + hashKey);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            Log.e(TAG, "printHashKey()", e);
+        } catch (Exception e) {
+            Log.e(TAG, "printHashKey()", e);
+        }
+
         setupViewModel();
 
         setupUiFunction();
@@ -85,6 +111,7 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
 //                    openMainActivity();
 //                }
 
+                RequestData(loginResult.getAccessToken());
                 String username = "api";
                 String password = "Password1";
 
@@ -107,7 +134,7 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
 
 //        binding.loginBtnFacebook.setReadPermissions(Arrays.asList(EMAIL));
 
-
+        binding.loginBtnFacebook.setReadPermissions("email", "public_profile", "user_friends");
         binding.btnFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +152,39 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
                 startActivityForResult(intent,RC_SIGN_IN);
             }
         });
+    }
+
+    private void RequestData(AccessToken accessToken) {
+
+        GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+
+                final JSONObject json = response.getJSONObject();
+
+
+
+                try {
+                    if(json != null){
+//                        text = "<b>Name :</b> "+json.getString("name")+"<br><br><b>Email :</b> "+json.getString("email")+"<br><br><b>Profile link :</b> "+json.getString("link");
+                    /*details_txt.setText(Html.fromHtml(text));
+                    profile.setProfileId(json.getString("id"));*/
+
+                        Log.e(TAG, json.getString("name"));
+                        Log.e(TAG, json.getString("email"));
+                        Log.e(TAG, json.getString("id"));
+                        //web.loadData(text, "text/html", "UTF-8");
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,link,email,picture");
+        request.setParameters(parameters);
+        request.executeAsync();
     }
 
     @Override
