@@ -33,6 +33,7 @@ import com.google.api.services.people.v1.model.Person;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +48,7 @@ import sg.carpark.looq.ui.signup.SignUpActivity;
 public class LoginActivity extends BaseActivity implements LoginNavigator, GoogleApiClient.OnConnectionFailedListener {
     private ActivitySignInBinding binding;
     private LoginViewModel viewModel;
-    private  CallbackManager callbackManager;
+    private CallbackManager callbackManager;
     private GoogleApiClient googleApiClient;
     private static final int RC_SIGN_IN = 1;
     private String name, email;
@@ -55,6 +56,7 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
     private String pass = "";
     private int FLAG_LOGIN = 0;
     private static final String TAG = "LoginActivity";
+    private static final String EMAIL = "looqtest@gmail.com";
 
 
     @Override
@@ -102,6 +104,8 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
                 }
             }
         });
+
+//        binding.loginBtnFacebook.setReadPermissions(Arrays.asList(EMAIL));
 
 
         binding.btnFacebook.setOnClickListener(new View.OnClickListener() {

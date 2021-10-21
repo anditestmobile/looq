@@ -23,8 +23,11 @@
     <string name="edit_profile_message_empty_name">Please fill in the name</string>
     <string name="edit_profile_message_empty_phone">Please fill in the phone</string>
     <string name="edit_profile_message_empty_email">Please fill in the email</string>
+    <!--atet-->
+<!--    <string name="facebook_app_id">1787350721470014</string> <string name="fb_login_protocol_scheme">fb1787350721470014</string>-->
 
-    <string name="facebook_app_id">1787350721470014</string> <string name="fb_login_protocol_scheme">fb1787350721470014</string>
+    <!--andi-->
+    <string name="facebook_app_id">940329259911780</string> <string name="fb_login_protocol_scheme">fb940329259911780</string>-->
     <string name="web_client_id">257732829658-f19bjkiam9n8uvk6ukrt6bhk59dqn34d.apps.googleusercontent.com</string>
 
 </resources>
