@@ -25,5 +25,6 @@
     <string name="edit_profile_message_empty_email">Please fill in the email</string>
 
     <string name="facebook_app_id">1787350721470014</string> <string name="fb_login_protocol_scheme">fb1787350721470014</string>
+    <string name="web_client_id">257732829658-f19bjkiam9n8uvk6ukrt6bhk59dqn34d.apps.googleusercontent.com</string>
 
 </resources>

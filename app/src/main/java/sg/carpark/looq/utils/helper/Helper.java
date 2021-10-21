@@ -161,4 +161,9 @@ public class Helper {
                 return day +"th";
         }
     }
+
+    public static boolean isObjectInteger(Object o)
+    {
+        return o instanceof Integer;
+    }
 }

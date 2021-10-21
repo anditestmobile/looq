@@ -14,6 +14,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import sg.carpark.looq.R;
@@ -21,6 +22,7 @@ import sg.carpark.looq.data.model.ConnectionData;
 import sg.carpark.looq.data.model.User;
 import sg.carpark.looq.data.repository.LoginRepository;
 import sg.carpark.looq.ui.base.BaseViewModel;
+import sg.carpark.looq.ui.signup.SignUpActivity;
 import sg.carpark.looq.utils.constants.Constants;
 import sg.carpark.looq.utils.helper.Helper;
 import sg.carpark.looq.utils.helper.OdooConnect;
@@ -32,6 +34,8 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 
 import io.reactivex.Completable;
+
+import static sg.carpark.looq.utils.helper.Helper.isObjectInteger;
 
 /**
  * Created by TED on 29-Nov-20
@@ -53,7 +57,9 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
     private String errorMessage;
     private ArrayList<User> userProfile = new ArrayList<>();
     private ArrayList<User> partner = new ArrayList<>();
-    private String username, password;
+    private String name, username, password;
+    private Object dataSignUp;
+    private int result = 0;
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
@@ -68,6 +74,33 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
     private boolean isEmailAndPasswordValid(String username, String password) {
         return !TextUtils.isEmpty(username) && !TextUtils.isEmpty(password);
 //        return true;
+    }
+
+    private boolean isNameEmailAndPasswordValid(String name, String username, String password) {
+        return !TextUtils.isEmpty(name) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(password);
+//        return true;
+    }
+
+    public void signUp(String name, String email, String pass) {
+        if (isNameEmailAndPasswordValid(name, email, pass)) {
+            loading.postValue(true);
+            this.name = name;
+            username = email;
+            password = pass;
+
+            getCompositeDisposable().add(
+                    Completable.complete()
+                            .delay(1, TimeUnit.SECONDS)
+                            .subscribe(() -> {
+                                PARAM = 4;
+                                tarea = new ConnectionOdoo();
+                                tarea.execute();
+                            })
+            );
+        } else {
+            getNavigator().handleError(new Throwable(getApplication().getString(R.string.login_invalid)));
+        }
+
     }
 
     public void login(String username, String password) {
@@ -153,7 +186,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                     errorMessage = e.getMessage();
                     return false;
                 }
-            } else {
+            } else if (PARAM == 3) {
                 try {
                     data = new ArrayList<>();
                     data = oc.search_read(
@@ -164,6 +197,38 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                                     }
                             , Constants.GENERAL
                             , "id", "name", "email", "phone");
+                    return true;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    errorMessage = e.getMessage();
+                    return false;
+                }
+            } else {
+                try {
+                    Boolean ocT = OdooConnect.testConnection(cd.getUrl(), cd.getPort(), cd.getDb(), cd.getUsername(), cd.getPassword());
+                    if (ocT) {
+                        uId = OdooConnect.getUserId(cd.getUrl(), cd.getPort(), cd.getDb(), cd.getUsername(), cd.getPassword());
+//                    return true;
+                    } else {
+                        msgResult = "Connection error";
+                        return false;
+                    }
+                    HashMap map = new HashMap();
+                    map.put("name", name);
+                    map.put("login",username);
+                    map.put("company_ids", new Object[]{1});
+                    map.put("company_id", 1);
+                    map.put("password", password);
+                    oc = OdooConnect.connect(cd.getUrl(), cd.getPort(), cd.getDb(), cd.getUsername(), cd.getPassword());
+                    dataSignUp = oc.create(
+                            "res.users",//api
+                            map);
+                    if(isObjectInteger(dataSignUp)){
+                        result = (int) dataSignUp;
+                    }else{
+                        msgResult = (String) dataSignUp;
+                        return false;
+                    }
                     return true;
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -187,6 +252,12 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                 cd.setUsername(username);
                 cd.setPassword(password);
                 inp = true;
+            }else if(PARAM == 4){
+                cd.setUrl(Constants.DOMAIN);
+                cd.setPort(Constants.PORT);
+                cd.setDb(Constants.DB);
+                cd.setUsername(Constants.LOOQ_USER);
+                cd.setPassword(Constants.LOOQ_PASSWORD);
             }
         }
 
@@ -218,9 +289,21 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
                         executeGetData(null);
                     }
-                } else {
+                } else if(PARAM == 3) {
                     loading.postValue(false);
                     Toast.makeText(getApplication(), "Could not get data from server", Toast.LENGTH_SHORT).show();
+                } else{
+                    if (result) {
+//                        Toast.makeText(getApplication(), "Success to sign up", Toast.LENGTH_SHORT).show();
+                        login(username, password);
+                    } else {
+                        if(msgResult.contains("You can not have two users with the same login!")){
+                            login(username, password);
+                        }else {
+                            loading.postValue(false);
+                            Toast.makeText(getApplication(), "Failed to login", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
             }
 

@@ -43,6 +43,8 @@ import sg.carpark.looq.utils.helper.Helper;
 import sg.carpark.looq.utils.helper.OdooConnect;
 import sg.carpark.looq.utils.session.SessionManager;
 
+import static sg.carpark.looq.utils.helper.Helper.isObjectInteger;
+
 public class SignUpActivity extends BaseActivity {
     private ActivitySignUpBinding binding;
     private String name, username, password;
@@ -162,11 +164,6 @@ public class SignUpActivity extends BaseActivity {
         Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    public boolean isObjectInteger(Object o)
-    {
-        return o instanceof Integer;
     }
 
 }

@@ -101,10 +101,7 @@
 <!--        andi-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCWwkoICiw2NwrzkWSfZWLDF-PA89nisIQ"  />
-
-
-
+            android:value="AIzaSyDKILSrV3F40wYgl196xUXpCIbW5k_JLNM"  />
 
         <service
             android:name=".utils.location.FetchAddressIntentService"
