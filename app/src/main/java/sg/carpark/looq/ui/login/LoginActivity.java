@@ -1,6 +1,7 @@
 package sg.carpark.looq.ui.login;
 
 import android.accounts.Account;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +60,8 @@ import sg.carpark.looq.ui.base.BaseActivity;
 import sg.carpark.looq.ui.main.MainActivity;
 import sg.carpark.looq.ui.signup.SignUpActivity;
 
+import static android.view.Window.FEATURE_NO_TITLE;
+
 public class LoginActivity extends BaseActivity implements LoginNavigator, GoogleApiClient.OnConnectionFailedListener {
     private ActivitySignInBinding binding;
     private LoginViewModel viewModel;
@@ -67,6 +72,7 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
     private String idToken;
     private String pass = "";
     private int FLAG_LOGIN = 0;
+    private Dialog settingDialog;
     private static final String TAG = "LoginActivity";
     private static final String EMAIL = "looqtest@gmail.com";
 
@@ -78,19 +84,7 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                String hashKey = new String(Base64.encode(md.digest(), 0));
-                Log.i(TAG, "printHashKey() Hash Key: " + hashKey);
-            }
-        } catch (NoSuchAlgorithmException e) {
-            Log.e(TAG, "printHashKey()", e);
-        } catch (Exception e) {
-            Log.e(TAG, "printHashKey()", e);
-        }
+        binding.setting.setOnClickListener(v -> openDialogSetting());
 
         setupViewModel();
 
@@ -121,7 +115,7 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
 
             @Override
             public void onError(FacebookException error) {
-                if(error != null){
+                if (error != null) {
 
                 }
             }
@@ -144,9 +138,36 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
                 FLAG_LOGIN = 0;
                 Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
                 googleApiClient.clearDefaultAccountAndReconnect();
-                startActivityForResult(intent,RC_SIGN_IN);
+                startActivityForResult(intent, RC_SIGN_IN);
             }
         });
+    }
+
+    private void openDialogSetting() {
+        String hashKey = "";
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                hashKey = new String(Base64.encode(md.digest(), 0));
+                Log.i(TAG, "printHashKey() Hash Key: " + hashKey);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            Log.e(TAG, "printHashKey()", e);
+        } catch (Exception e) {
+            Log.e(TAG, "printHashKey()", e);
+        }
+        settingDialog = new Dialog(this);
+        settingDialog.requestWindowFeature(FEATURE_NO_TITLE);
+        settingDialog.setContentView(R.layout.dialog_setting);
+        EditText keyHash = settingDialog.findViewById(R.id.keyHash);
+        keyHash.setText(hashKey);
+        Button btnSave = settingDialog.findViewById(R.id.btnSave);
+        btnSave.setOnClickListener(v -> {
+            settingDialog.dismiss();
+        });
+        settingDialog.show();
     }
 
     private void RequestData(AccessToken accessToken) {
@@ -158,9 +179,8 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
                 final JSONObject json = response.getJSONObject();
 
 
-
                 try {
-                    if(json != null){
+                    if (json != null) {
 //                        text = "<b>Name :</b> "+json.getString("name")+"<br><br><b>Email :</b> "+json.getString("email")+"<br><br><b>Profile link :</b> "+json.getString("link");
                     /*details_txt.setText(Html.fromHtml(text));
                     profile.setProfileId(json.getString("id"));*/
@@ -186,10 +206,10 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==RC_SIGN_IN){
+        if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
-        }else{
+        } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -248,13 +268,13 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
     }
 
     private void googleSignin() {
-        GoogleSignInOptions gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.web_client_id))//you can also use R.string.default_web_client_id
                 .requestEmail()
                 .build();
-        googleApiClient=new GoogleApiClient.Builder(this)
-                .enableAutoManage(this,this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
     }
@@ -264,17 +284,17 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
 
     }
 
-    private void handleSignInResult(GoogleSignInResult result){
-        if(result.isSuccess()){
+    private void handleSignInResult(GoogleSignInResult result) {
+        if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
             idToken = account.getIdToken();
             name = account.getDisplayName();
             email = account.getEmail();
             pass = idToken.substring(0, 9);
-            viewModel.signUp(name ,email, pass);
-        }else{
+            viewModel.signUp(name, email, pass);
+        } else {
             // Google Sign In failed, update UI appropriately
-            Log.e(TAG, "Login Unsuccessful. "+result);
+            Log.e(TAG, "Login Unsuccessful. " + result);
             Toast.makeText(this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
         }
     }
