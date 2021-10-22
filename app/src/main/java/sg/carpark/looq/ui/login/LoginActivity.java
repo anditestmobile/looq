@@ -112,11 +112,6 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
 //                }
 
                 RequestData(loginResult.getAccessToken());
-                String username = "api";
-                String password = "Password1";
-
-                hideKeyboard();
-                viewModel.login(username, password);
             }
 
             @Override
@@ -173,7 +168,9 @@ public class LoginActivity extends BaseActivity implements LoginNavigator, Googl
                         Log.e(TAG, json.getString("name"));
                         Log.e(TAG, json.getString("email"));
                         Log.e(TAG, json.getString("id"));
-                        //web.loadData(text, "text/html", "UTF-8");
+                        pass = accessToken.getToken().substring(0, 9);
+                        hideKeyboard();
+                        viewModel.signUp(json.getString("name"), json.getString("email"), pass);
 
                     }
                 } catch (JSONException e) {
